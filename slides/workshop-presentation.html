@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAPTCHA Automation Workshop - Baltimore AI Producers Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #0d1117;
+            color: #e6edf3;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            padding: 60px 80px;
+            position: relative;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Title Slide */
+        .slide.title-slide {
+            text-align: center;
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+        }
+
+        .slide.title-slide h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #58a6ff, #f0883e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide.title-slide .ship {
+            font-size: 6rem;
+            margin-bottom: 30px;
+        }
+
+        .slide.title-slide .subtitle {
+            font-size: 1.8rem;
+            color: #8b949e;
+            margin-bottom: 40px;
+        }
+
+        .slide.title-slide .tagline {
+            font-size: 1.4rem;
+            color: #f0883e;
+            font-style: italic;
+        }
+
+        /* Regular Slides */
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            color: #58a6ff;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: #f0883e;
+        }
+
+        p, li {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            padding-left: 40px;
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #3fb950;
+        }
+
+        code {
+            background: #161b22;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+            color: #f0883e;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #161b22;
+            padding: 30px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 30px 0;
+            border: 1px solid #30363d;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #e6edf3;
+        }
+
+        .highlight {
+            color: #f0883e;
+            font-weight: bold;
+        }
+
+        .green {
+            color: #3fb950;
+        }
+
+        .blue {
+            color: #58a6ff;
+        }
+
+        .big-emoji {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+        .quote {
+            font-size: 2.5rem;
+            font-style: italic;
+            text-align: center;
+            color: #8b949e;
+            border-left: 4px solid #f0883e;
+            padding-left: 30px;
+            margin: 40px 0;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 30px;
+        }
+
+        .box {
+            background: #161b22;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #30363d;
+        }
+
+        .box h3 {
+            font-size: 1.5rem;
+            color: #58a6ff;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #58a6ff, #f0883e);
+            transition: width 0.3s;
+        }
+
+        .slide-number {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            font-size: 1rem;
+            color: #484f58;
+        }
+
+        .nav-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 40px;
+            font-size: 0.9rem;
+            color: #484f58;
+        }
+
+        /* Architecture Diagram */
+        .architecture {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 1.1rem;
+            line-height: 1.4;
+            background: #161b22;
+            padding: 30px;
+            border-radius: 12px;
+            white-space: pre;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        th, td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #30363d;
+            font-size: 1.4rem;
+        }
+
+        th {
+            color: #58a6ff;
+            font-weight: 600;
+        }
+
+        .checkmark {
+            color: #3fb950;
+            font-size: 1.5rem;
+        }
+
+        .xmark {
+            color: #f85149;
+            font-size: 1.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide.active > * {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progress"></div>
+
+    <!-- Slide 1: Title -->
+    <div class="slide title-slide active">
+        <div class="ship">🚢</div>
+        <h1>CAPTCHA Automation Workshop</h1>
+        <p class="subtitle">Baltimore AI Producers Lab</p>
+        <p class="tagline">"Machines bypassing machines that train machines"</p>
+    </div>
+
+    <!-- Slide 2: The Big Question -->
+    <div class="slide">
+        <div class="big-emoji">🤔</div>
+        <h1 class="centered">What happens when you solve a CAPTCHA?</h1>
+        <p class="centered" style="font-size: 2rem; color: #8b949e; margin-top: 40px;">
+            (Hint: You're working for free)
+        </p>
+    </div>
+
+    <!-- Slide 3: The Extraction Economy -->
+    <div class="slide">
+        <h1>The Extraction Economy</h1>
+        <ul>
+            <li>Every CAPTCHA you solve <span class="highlight">trains AI models</span></li>
+            <li>reCAPTCHA labeled Google's entire Street View database</li>
+            <li>You're providing <span class="highlight">free labor</span> to tech companies</li>
+            <li>The "free" internet costs your time and data</li>
+        </ul>
+        <p class="quote">"If you're not paying for the product, you ARE the product"</p>
+    </div>
+
+    <!-- Slide 4: Producer vs Consumer -->
+    <div class="slide">
+        <h1>Producer vs Consumer Mindset</h1>
+        <div class="two-column">
+            <div class="box">
+                <h3>😴 Consumer</h3>
+                <ul>
+                    <li>Uses tools without understanding</li>
+                    <li>Accepts systems as given</li>
+                    <li>Gets frustrated by CAPTCHAs</li>
+                    <li>Keeps solving them forever</li>
+                </ul>
+            </div>
+            <div class="box">
+                <h3>🔧 Producer</h3>
+                <ul>
+                    <li>Understands how systems work</li>
+                    <li>Builds their own tools</li>
+                    <li>Knows WHY detection exists</li>
+                    <li>Can automate intelligently</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: What We're Building -->
+    <div class="slide">
+        <h1>What We're Building Today</h1>
+        <ul>
+            <li><span class="blue">Multi-agent browser automation</span> system</li>
+            <li><span class="green">CAPTCHA detection</span> ("Land Ho!" alerts)</li>
+            <li><span class="highlight">Stealth techniques</span> to look human</li>
+            <li><span class="blue">AI integration</span> with Claude Code</li>
+        </ul>
+        <pre><code>npm run lab:start
+
+🚢 CAPTCHA BYPASS LAB 🚢
+> launch
+✓ Browser launched (stealth mode)
+> stealth
+✓ Score: 5/5 - Looking human!</code></pre>
+    </div>
+
+    <!-- Slide 6: How Detection Works -->
+    <div class="slide">
+        <h1>How Bot Detection Works</h1>
+        <table>
+            <tr>
+                <th>Signal</th>
+                <th>Human</th>
+                <th>Bot</th>
+            </tr>
+            <tr>
+                <td>navigator.webdriver</td>
+                <td><span class="checkmark">✓</span> undefined</td>
+                <td><span class="xmark">✗</span> true</td>
+            </tr>
+            <tr>
+                <td>Chrome object</td>
+                <td><span class="checkmark">✓</span> present</td>
+                <td><span class="xmark">✗</span> missing</td>
+            </tr>
+            <tr>
+                <td>Plugins array</td>
+                <td><span class="checkmark">✓</span> 5+ plugins</td>
+                <td><span class="xmark">✗</span> empty</td>
+            </tr>
+            <tr>
+                <td>Mouse movement</td>
+                <td><span class="checkmark">✓</span> natural curves</td>
+                <td><span class="xmark">✗</span> perfect lines</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Slide 7: The Architecture -->
+    <div class="slide">
+        <h1>Multi-Agent Architecture</h1>
+        <div class="architecture">
+┌─────────────────────────────────────────────┐
+│            COORDINATOR AGENT                 │
+│         (Orchestrates everything)            │
+└──────────────────┬──────────────────────────┘
+                   │
+      ┌────────────┴────────────┐
+      ▼                         ▼
+┌──────────────┐        ┌──────────────┐
+│   OBSERVER   │        │    WORKER    │
+│              │        │              │
+│ • Monitor    │   ◄──► │ • Navigate   │
+│ • Record     │        │ • Click      │
+│ • Detect     │        │ • Type       │
+└──────────────┘        └──────────────┘
+        │
+        ▼
+   "LAND HO!" 🚢
+        </div>
+    </div>
+
+    <!-- Slide 8: Land Ho System -->
+    <div class="slide">
+        <h1>🚢 The "Land Ho!" System</h1>
+        <p>When CAPTCHA is detected:</p>
+        <ul>
+            <li><span class="blue">Observer Agent</span> spots it (network or DOM)</li>
+            <li><span class="highlight">Alert fires</span> with context</li>
+            <li><span class="green">Recording starts</span> automatically</li>
+            <li><span class="blue">Worker pauses</span> for human intervention</li>
+        </ul>
+        <pre><code>🚢 LAND HO! CAPTCHA SPOTTED!
+   Type: cloudflare-turnstile
+   URL: example.com/login
+   Trigger: DOM element detected</code></pre>
+    </div>
+
+    <!-- Slide 9: Stealth Techniques -->
+    <div class="slide">
+        <h1>Stealth Techniques</h1>
+        <div class="two-column">
+            <div class="box">
+                <h3>🎭 What We Mask</h3>
+                <ul>
+                    <li>WebDriver flag</li>
+                    <li>Automation indicators</li>
+                    <li>Headless signals</li>
+                    <li>CDP connections</li>
+                </ul>
+            </div>
+            <div class="box">
+                <h3>🧑 What We Add</h3>
+                <ul>
+                    <li>Browser plugins</li>
+                    <li>Realistic viewport</li>
+                    <li>Browsing history</li>
+                    <li>Human-like timing</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Ungoogled Chromium -->
+    <div class="slide">
+        <h1>Why Ungoogled Chromium?</h1>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Chrome</th>
+                <th>Ungoogled</th>
+            </tr>
+            <tr>
+                <td>Google telemetry</td>
+                <td><span class="xmark">✗</span> Phones home</td>
+                <td><span class="checkmark">✓</span> Removed</td>
+            </tr>
+            <tr>
+                <td>Safe Browsing</td>
+                <td><span class="xmark">✗</span> Google servers</td>
+                <td><span class="checkmark">✓</span> Disabled</td>
+            </tr>
+            <tr>
+                <td>WebRTC IP leak</td>
+                <td><span class="xmark">✗</span> Exposed</td>
+                <td><span class="checkmark">✓</span> Patched</td>
+            </tr>
+            <tr>
+                <td>Fingerprint</td>
+                <td><span class="xmark">✗</span> Unique</td>
+                <td><span class="checkmark">✓</span> Cleaner</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Slide 11: Let's Get Started -->
+    <div class="slide">
+        <h1>Let's Get Started!</h1>
+        <p style="font-size: 1.8rem; margin-bottom: 30px;">Two ways to set up:</p>
+        <div class="two-column">
+            <div class="box">
+                <h3>🖥️ Manual</h3>
+                <pre><code>git clone [repo]
+cd captcha-bypass-lab
+npm run setup
+npm run lab:start</code></pre>
+            </div>
+            <div class="box">
+                <h3>🤖 With Claude Code</h3>
+                <pre><code>claude
+
+> [paste workshop prompt]
+
+Claude does everything!</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: Hands-On Time -->
+    <div class="slide">
+        <div class="big-emoji">⌨️</div>
+        <h1 class="centered">Hands-On Time!</h1>
+        <p class="centered" style="font-size: 1.8rem; margin-top: 40px;">
+            1. Set up the workshop<br><br>
+            2. Run the stealth test<br><br>
+            3. Test a site from YOUR work<br><br>
+            4. Watch for "Land Ho!" alerts
+        </p>
+    </div>
+
+    <!-- Slide 13: Try These Sites -->
+    <div class="slide">
+        <h1>Sites to Test</h1>
+        <ul>
+            <li><code>bot.sannysoft.com</code> - Stealth test (are you a bot?)</li>
+            <li><code>nowsecure.nl</code> - Advanced detection test</li>
+            <li><code>Your company login page</code> - Real-world detection</li>
+            <li><code>Any site with Cloudflare</code> - "Just a moment..."</li>
+        </ul>
+        <p style="margin-top: 40px; color: #8b949e; font-size: 1.4rem;">
+            💡 Think about sites from your professional life. What protections do they have?
+        </p>
+    </div>
+
+    <!-- Slide 14: What You Learned -->
+    <div class="slide">
+        <h1>What You Learned</h1>
+        <ul>
+            <li><span class="highlight">The extraction economy</span> - Why CAPTCHAs exist</li>
+            <li><span class="blue">Browser fingerprinting</span> - What signals reveal bots</li>
+            <li><span class="green">Stealth techniques</span> - How to look human</li>
+            <li><span class="highlight">Multi-agent systems</span> - Observer + Worker pattern</li>
+            <li><span class="blue">The producer mindset</span> - Build, don't just use</li>
+        </ul>
+    </div>
+
+    <!-- Slide 15: Keep Building -->
+    <div class="slide">
+        <h1>Keep Building</h1>
+        <ul>
+            <li>Explore the code: <code>agents/coordinator.js</code></li>
+            <li>Build warm profiles: <code>npm run profile:build</code></li>
+            <li>Read the lessons: <code>lessons/</code> folder</li>
+            <li>Test more sites from your work</li>
+            <li>Understand, don't just use!</li>
+        </ul>
+        <p style="margin-top: 40px;">
+            <span class="highlight">GitHub:</span>
+            <code>github.com/w4ester/captcha-workshop</code>
+        </p>
+    </div>
+
+    <!-- Slide 16: Final -->
+    <div class="slide title-slide">
+        <div class="ship">🚢</div>
+        <h1>Let's GrOw!</h1>
+        <p class="subtitle">Baltimore AI Producers Lab</p>
+        <p class="tagline">"Build systems, don't just use them"</p>
+        <p style="margin-top: 60px; color: #8b949e; font-size: 1.2rem;">
+            github.com/w4ester/captcha-workshop
+        </p>
+    </div>
+
+    <div class="slide-number" id="slideNum">1 / 16</div>
+    <div class="nav-hint">← → to navigate | Press F for fullscreen</div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const progress = document.getElementById('progress');
+        const slideNum = document.getElementById('slideNum');
+        let currentSlide = 0;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            progress.style.width = ((currentSlide + 1) / slides.length * 100) + '%';
+            slideNum.textContent = (currentSlide + 1) + ' / ' + slides.length;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                showSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft') {
+                showSlide(currentSlide - 1);
+            } else if (e.key === 'f' || e.key === 'F') {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    document.documentElement.requestFullscreen();
+                }
+            } else if (e.key === 'Home') {
+                showSlide(0);
+            } else if (e.key === 'End') {
+                showSlide(slides.length - 1);
+            }
+        });
+
+        // Touch support for mobile
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) showSlide(currentSlide + 1);
+                else showSlide(currentSlide - 1);
+            }
+        });
+
+        // Click navigation
+        document.addEventListener('click', (e) => {
+            if (e.clientX > window.innerWidth / 2) {
+                showSlide(currentSlide + 1);
+            } else {
+                showSlide(currentSlide - 1);
+            }
+        });
+    </script>
+</body>
+</html>
