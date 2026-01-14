@@ -135,6 +135,7 @@ Every CAPTCHA you solve trains AI models for free. This workshop teaches you to 
 ```
 captcha-workshop/
 ├── README.md               # You are here
+├── SETUP-CLAUDE-CODE.md    # 🆕 First time? Start here!
 ├── CLAUDE-CODE-PROMPT.md   # 🤖 Paste this into Claude Code!
 ├── WORKSHOP-EMAIL.md       # 📧 Email templates for organizers
 ├── QUICK-START.md          # Fast reference
@@ -152,7 +153,9 @@ captcha-workshop/
 
 ## For Claude Code Users
 
-**Want Claude to set everything up for you?** Copy the prompt from [`CLAUDE-CODE-PROMPT.md`](CLAUDE-CODE-PROMPT.md) and paste it into Claude Code!
+**New to Claude Code?** Start here: [`SETUP-CLAUDE-CODE.md`](SETUP-CLAUDE-CODE.md) - Get your free 7-day trial and install in 10 minutes!
+
+**Already have Claude Code?** Copy the prompt from [`CLAUDE-CODE-PROMPT.md`](CLAUDE-CODE-PROMPT.md) and paste it in!
 
 Claude will:
 1. Clone and set up the workshop
