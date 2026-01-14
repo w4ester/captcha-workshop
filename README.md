@@ -2,6 +2,74 @@
 
 **Baltimore AI Producers Lab** - Learn by building, not just consuming.
 
+![Demo](assets/demo.gif)
+
+---
+
+## First Time? Open Your Terminal
+
+<details>
+<summary><strong>🍎 Mac Users</strong> (click to expand)</summary>
+
+### Option 1: Spotlight (Fastest)
+1. Press `Cmd + Space`
+2. Type `Terminal`
+3. Press `Enter`
+
+### Option 2: Finder
+1. Open **Finder**
+2. Go to **Applications** → **Utilities**
+3. Double-click **Terminal**
+
+### Option 3: Launchpad
+1. Click the **Launchpad** icon in your dock (grid of squares)
+2. Type `Terminal` in the search bar
+3. Click the Terminal icon
+
+</details>
+
+<details>
+<summary><strong>🪟 Windows Users</strong> (click to expand)</summary>
+
+### Option 1: Search (Fastest)
+1. Press `Windows key`
+2. Type `cmd` or `PowerShell`
+3. Press `Enter`
+
+### Option 2: Run Dialog
+1. Press `Windows + R`
+2. Type `cmd`
+3. Press `Enter`
+
+### Option 3: Right-click Start Menu
+1. Right-click the **Start** button
+2. Select **Windows Terminal** or **Command Prompt**
+
+> **Tip**: PowerShell works too! Commands are the same.
+
+</details>
+
+<details>
+<summary><strong>🐧 Linux Users</strong> (click to expand)</summary>
+
+1. Press `Ctrl + Alt + T` (most distros)
+2. Or find **Terminal** in your applications menu
+
+</details>
+
+---
+
+## Get the Code
+
+```bash
+git clone https://github.com/w4ester/captcha-workshop.git
+cd captcha-workshop
+```
+
+> **Don't have git?** Download the [ZIP file](https://github.com/w4ester/captcha-workshop/archive/refs/heads/main.zip) and unzip it.
+
+> **Don't have Node.js?** Download it from [nodejs.org](https://nodejs.org/) (LTS version recommended)
+
 ---
 
 ## 3-Step Setup
@@ -10,14 +78,14 @@
 # 1. Enter the lab
 cd captcha-bypass-lab
 
-# 2. Install everything
+# 2. Install everything (takes 2-3 minutes first time)
 npm run setup
 
 # 3. Start exploring!
 npm run lab:start
 ```
 
-That's it. You're in.
+That's it. You're in!
 
 ---
 
