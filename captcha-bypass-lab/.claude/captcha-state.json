@@ -1,0 +1,7 @@
+{
+  "captcha_detected": true,
+  "detection_count": 1,
+  "stealth_active": true,
+  "last_pattern": "recaptcha",
+  "detected_url": "google.com/recaptcha/api2/demo"
+}

@@ -1,0 +1,56 @@
+{
+  "name": "captcha-bypass-lab",
+  "version": "1.0.0",
+  "description": "Multi-agent browser automation lab with CAPTCHA detection and stealth mode",
+  "main": "index.js",
+  "bin": {
+    "captcha-lab": "./bin/cli.js"
+  },
+  "scripts": {
+    "setup": "bash browser/setup.sh && npm install && npx playwright install chromium",
+    "setup:browser": "bash browser/setup.sh",
+    "setup:deps": "npm install && npx playwright install chromium",
+    
+    "lab:start": "node index.js",
+    "lab:demo": "node index.js --demo",
+    "lab:stealth-test": "node index.js --stealth-test",
+    
+    "agent:coordinator": "node agents/coordinator.js",
+    "agent:observer": "node agents/observer-agent.js",
+    "agent:worker": "node agents/worker-agent.js",
+    
+    "mcp:start": "node mcp/server-standalone.js",
+    "mcp:test": "echo '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\"}' | node mcp/server-standalone.js",
+    
+    "browser:launch": "bash browser/launch.sh",
+    "browser:launch:debug": "bash browser/launch.sh --debug",
+    
+    "profile:build": "node stealth/profile-builder.js",
+    "profile:clean": "rm -rf browser/profile/*",
+    
+    "test:detection": "node detectors/detector.js",
+    "test:stealth": "node browser/launch.js"
+  },
+  "dependencies": {
+    "puppeteer": "^21.6.0",
+    "playwright": "^1.40.0",
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "browser-automation",
+    "captcha",
+    "stealth",
+    "puppeteer",
+    "playwright",
+    "mcp",
+    "multi-agent"
+  ],
+  "author": "Baltimore AI Producers Lab",
+  "license": "MIT"
+}

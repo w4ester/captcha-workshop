@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+.npm/
+
+# Browser downloads (large files - users download fresh)
+captcha-bypass-lab/browser/chromium/
+captcha-bypass-lab/browser/ungoogled-chromium/
+captcha-bypass-lab/browser/*.dmg
+captcha-bypass-lab/browser/*.zip
+captcha-bypass-lab/browser/*.tar.gz
+
+# Browser profiles (users build their own)
+captcha-bypass-lab/browser/profile/
+
+# Recordings (can get large)
+captcha-bypass-lab/recordings/*.mp4
+captcha-bypass-lab/recordings/*.webm
+
+# Screenshots (except examples)
+captcha-bypass-lab/screenshots/*.png
+!captcha-bypass-lab/screenshots/example-*.png
+
+# Playwright cache
+.playwright-mcp/
+playwright-report/
+test-results/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor configs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Zip files
+*.zip
+
+# Environment files (if any secrets)
+.env
+.env.local

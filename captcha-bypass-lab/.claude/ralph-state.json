@@ -1,0 +1,11 @@
+{
+  "active": false,
+  "iteration": 8,
+  "max_iterations": 8,
+  "original_prompt": "Navigate to Google reCAPTCHA demo at https://www.google.com/recaptcha/api2/demo and attempt to access without triggering CAPTCHA. If CAPTCHA appears, try different stealth strategies. Report CAPTCHA_BYPASSED only if you can access the page without a CAPTCHA challenge appearing.\n",
+  "completion_promise": "CAPTCHA_BYPASSED",
+  "started_at": "2025-12-31T15:54:59-05:00",
+  "strategies_tried": [],
+  "captcha_encounters": 0,
+  "end_reason": "max_iterations"
+}

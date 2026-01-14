@@ -1,0 +1,13 @@
+
+{"ts": "2025-12-31T15:55:32-05:00", "iter": 1, "strategy": "direct_navigation", "outcome": "captcha_detected", "captchas": 1}
+{"ts": "2025-12-31T15:56:06-05:00", "iter": 2, "strategy": "random_delays", "outcome": "captcha_still_present", "captchas": 1}
+{"ts": "2025-12-31T15:56:23-05:00", "iter": 3, "strategy": "clear_cookies", "outcome": "captcha_present", "captchas": 1}
+{"ts": "2025-12-31T15:56:23-05:00", "iter": 4, "strategy": "warm_navigation", "outcome": "captcha_present", "captchas": 1}
+{"ts": "2025-12-31T15:56:24-05:00", "iter": 5, "strategy": "mouse_simulation", "outcome": "captcha_present", "captchas": 1}
+{"ts": "2025-12-31T15:56:25-05:00", "iter": 6, "strategy": "random_delays", "outcome": "captcha_present", "captchas": 1}
+{"ts": "2025-12-31T15:56:40-05:00", "iter": 7, "strategy": "change_ua", "outcome": "captcha_present", "captchas": 1}
+{"ts": "2025-12-31T15:56:41-05:00", "iter": 8, "strategy": "clear_cookies", "outcome": "captcha_present", "captchas": 1}
+{"ts": "2025-12-31T15:57:06-05:00", "iter": 8, "strategy": "final", "outcome": "max_iterations_reached", "captchas": 1}
+{"ts": "2025-12-31T16:08:14-05:00", "test": "real_automation", "outcome": "SUCCESS", "challenges": 0, "human_intervention": false}
+{"ts": "2025-12-31T16:45:00-05:00", "test": "fresh_session_automation", "outcome": "SUCCESS", "challenges": 1, "challenge_type": "image_selection", "challenge_task": "traffic_lights", "tiles_selected": 4, "human_intervention": false}
+{"ts": "2025-12-31T17:15:00-05:00", "test": "batch_click_automation", "outcome": "SUCCESS", "method": "browser_run_code", "challenges": 2, "challenge_types": ["cars_3x3", "motorcycles_4x4"], "approach": "batch_click_all_tiles_in_single_execution", "human_intervention": false}

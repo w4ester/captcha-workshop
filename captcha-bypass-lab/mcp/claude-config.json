@@ -1,0 +1,55 @@
+{
+  "mcpServers": {
+    "captcha-lab": {
+      "command": "node",
+      "args": ["mcp/server.js"],
+      "description": "CAPTCHA Bypass Lab - Browser automation with stealth mode and multi-agent CAPTCHA detection",
+      "tools": [
+        {
+          "name": "browser_launch",
+          "description": "Launch stealth browser with CAPTCHA detection"
+        },
+        {
+          "name": "browser_navigate",
+          "description": "Navigate to URL"
+        },
+        {
+          "name": "browser_click",
+          "description": "Click element by selector"
+        },
+        {
+          "name": "browser_type",
+          "description": "Type text into input"
+        },
+        {
+          "name": "browser_screenshot",
+          "description": "Take screenshot"
+        },
+        {
+          "name": "browser_record_start",
+          "description": "Start video recording"
+        },
+        {
+          "name": "browser_record_stop",
+          "description": "Stop video recording"
+        },
+        {
+          "name": "captcha_status",
+          "description": "Check CAPTCHA detection status"
+        },
+        {
+          "name": "captcha_wait",
+          "description": "Wait for CAPTCHA resolution"
+        },
+        {
+          "name": "stealth_test",
+          "description": "Run bot detection test"
+        },
+        {
+          "name": "browser_close",
+          "description": "Close browser"
+        }
+      ]
+    }
+  }
+}
