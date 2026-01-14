@@ -133,21 +133,34 @@ Every CAPTCHA you solve trains AI models for free. This workshop teaches you to 
 ## Workshop Structure
 
 ```
-lesson-captcha-automation/
-├── README.md              # You are here
-├── 00-producer-mindset.md # The philosophy
-├── QUICK-START.md         # Fast reference
-└── captcha-bypass-lab/    # The actual code
-    ├── lessons/           # Step-by-step guides
-    ├── agents/            # Multi-agent system
-    ├── browser/           # Stealth browser setup
-    ├── detectors/         # CAPTCHA detection
-    └── mcp/               # Claude Code integration
+captcha-workshop/
+├── README.md               # You are here
+├── CLAUDE-CODE-PROMPT.md   # 🤖 Paste this into Claude Code!
+├── WORKSHOP-EMAIL.md       # 📧 Email templates for organizers
+├── QUICK-START.md          # Fast reference
+├── 00-producer-mindset.md  # The philosophy
+├── assets/                 # Demo images & GIFs
+└── captcha-bypass-lab/     # The actual code
+    ├── lessons/            # Step-by-step guides
+    ├── agents/             # Multi-agent system
+    ├── browser/            # Stealth browser setup
+    ├── detectors/          # CAPTCHA detection
+    └── mcp/                # Claude Code integration
 ```
 
 ---
 
 ## For Claude Code Users
+
+**Want Claude to set everything up for you?** Copy the prompt from [`CLAUDE-CODE-PROMPT.md`](CLAUDE-CODE-PROMPT.md) and paste it into Claude Code!
+
+Claude will:
+1. Clone and set up the workshop
+2. Run the demo and explain what's happening
+3. Test sites you give it from your professional life
+4. Teach you the producer mindset along the way
+
+### MCP Server Integration (Advanced)
 
 Add to your `.claude/claude_desktop_config.json` or `.claude.json`:
 
