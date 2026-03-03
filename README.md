@@ -217,4 +217,4 @@ Then Claude can control the browser directly with commands like:
 
 Built with the Baltimore AI Producers Lab - where we learn by building.
 
-**Questions?** Open an issue or reach out to the workshop facilitator.
+**Questions?** [Open an issue](https://github.com/w4ester/captcha-workshop/issues) or reach out to the workshop facilitator.
